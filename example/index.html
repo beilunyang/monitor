@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>logger example</title>
+</head>
+<body style="height: 100vh; margin: 0;">
+  <h3>logger example</h3>
+  <a href="javascript:;">纯点击事件(一)</a>
+  <a href="javascript:;" onclick="reqSuccess()">发送ajax请求(成功)</a>
+  <a href="javascript:;" onclick="reqFail()">发送ajax请求(失败)</a>
+  <a href="javascript:;" onclick="throwError()">引发错误</a>
+  <a href="#hashtest">hash路由变化</a>
+  <a href="#">返回首页</a>
+  <a href="javascript:;">纯点击事件(二)</a>
+  <script src="/bundle.js"></script>
+  <script>
+    var monitor = new Monitor({
+      module: '管家',
+      env: 'qa3',
+    });
+    monitor.run();
+
+    var reqFail = function () {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://google.com', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) console.log('readystatechange:', xhr.responseText);
+      };
+      xhr.send();
+    };
+
+    var reqSuccess = function () {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://api.hitokoto.cn/', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) console.log('readystatechange:', xhr.responseText);
+      };
+      xhr.send();
+    };
+
+    var throwError = function () {
+      throw new Error('三千世界鸦杀尽,与君共寝到天明');
+    };
+  </script>
+</bodys>
+</html>
